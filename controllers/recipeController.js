@@ -8,9 +8,10 @@ function index(req, res) {
     let filteredrecipes = recipesList;
 
     // Filtro le ricette che contengono un determinato tag
+    // Uso anche .some per evitare problemi con le maiuscole
     if (req.query.tags) {
-        filteredrecipes = recipesList.filter(
-            ricetta => ricetta.tags.includes(req.query.tags)
+        filteredrecipes = recipesList.filter(ricetta =>
+            ricetta.tags.some(tag => tag.toLowerCase() === req.query.tags.toLowerCase())
         );
     }
 
