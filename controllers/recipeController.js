@@ -7,7 +7,7 @@ function index(req, res) {
     // Inizialmente le ricette filtrate corrispondono a quelle originali
     let filteredrecipes = recipesList;
 
-    // Se la richiesta contiene quell'ingrediente, allora filtro le ricette
+    // Filtro le ricette che contengono un determinato ingrediente
     if (req.query.ingredient) {
         filteredrecipes = recipesList.filter(
             ricetta => ricetta.ingredients.includes(req.query.ingredient)
