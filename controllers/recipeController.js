@@ -7,10 +7,10 @@ function index(req, res) {
     // Inizialmente le ricette filtrate corrispondono a quelle originali
     let filteredrecipes = recipesList;
 
-    // Filtro le ricette che contengono un determinato ingrediente
-    if (req.query.ingredient) {
+    // Filtro le ricette che contengono un determinato tag
+    if (req.query.tags) {
         filteredrecipes = recipesList.filter(
-            ricetta => ricetta.ingredients.includes(req.query.ingredient)
+            ricetta => ricetta.tags.includes(req.query.tags)
         );
     }
 
