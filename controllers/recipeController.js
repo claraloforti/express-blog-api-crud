@@ -23,7 +23,7 @@ function index(req, res) {
 }
 
 
-// GET
+// GET ottengo una ricetta
 function show(req, res) {
 
     // Cerco la ricetta tramite ID
@@ -46,25 +46,78 @@ function show(req, res) {
 }
 
 
-// POST
+// POST creo nuova ricetta
 function store(req, res) {
-    res.send('Creazione nuova ricetta');
+    const newId = Date.now();
+
+    // Creo nuovo oggetto ricetta
+    const newRecipe = {
+        id: newId,
+        title: req.body.title,
+        image: req.body.image,
+        tags: req.body.tags,
+    }
+
+    // Aggiungo la nuova ricetta alla lista ricette
+    recipesList.push(newRecipe);
+
+
+    // Restituisco status Created e la nuova ricetta
+    res.status(201);
+    res.json(newRecipe);
 }
 
 
-// PUT
+// PUT modifica integrale della ricetta
 function update(req, res) {
-    res.send('Modifica integrale della ricetta ' + req.params.id);
+    const ricetta = recipesList.find(ricetta =>
+        ricetta.id === parseInt(req.params.id)
+    )
+
+    if (!ricetta) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Ricetta non trovata"
+        })
+    }
+
+    // Aggiorno ricetta
+    ricetta.title = req.body.title;
+    ricetta.image = req.body.image;
+    ricetta.tags = req.body.tags;
+
+    res.json(ricetta);
 }
 
 
-// PATCH
+// PATCH modifica parziale della ricetta
 function modify(req, res) {
-    res.send('Modifica parziale della ricetta ' + req.params.id);
+    const ricetta = recipesList.find(ricetta =>
+        ricetta.id === parseInt(req.params.id)
+    )
+
+    if (!ricetta) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Ricetta non trovata"
+        })
+    }
+
+    // Aggiorno ricetta
+    req.body.title ? ricetta.title = req.body.title : ricetta.title = ricetta.title;
+    req.body.image ? ricetta.image = req.body.image : ricetta.image = ricetta.image;
+    req.body.content ? ricetta.content = req.body.content : ricetta.content = ricetta.content;
+    req.body.tags ? ricetta.tags = req.body.tags : ricetta.tags = ricetta.tags;
+
+    res.json(ricetta);
 }
 
 
-// DELETE
+// DELETE rimuovo la ricetta
 function destroy(req, res) {
 
     // Cerco ricetta tramite ID

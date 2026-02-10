@@ -8,6 +8,9 @@ const recipesRouter = require('./routers/recipes');
 // Attivo cartella public per uso file statici
 app.use(express.static('public'));
 
+// Registro il body-parser per "application/json"
+app.use(express.json());
+
 // Rotta home
 app.get('/', (req, res) => {
     res.send("<h1>Home blog</h1>")
