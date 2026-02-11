@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Importo middleware di gestiore errore 500
+const errorsHandler = require("./middlewares/errorsHandler");
+//Importo middleware di gestione errore 404
+const notFound = require("./middlewares/notFound");
+
 // Importo router delle ricette
 const recipesRouter = require('./routers/recipes');
 
@@ -18,6 +23,10 @@ app.get('/', (req, res) => {
 
 // Istanza delle rotte per risorsa ricette
 app.use("/ricette", recipesRouter)
+
+// Registro middlewares di gestione errori 404 e 500
+app.use(errorsHandler);
+app.use(notFound);
 
 
 app.listen(port, () => {

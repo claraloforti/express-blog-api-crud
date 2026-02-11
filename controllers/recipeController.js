@@ -26,6 +26,9 @@ function index(req, res) {
 // GET ottengo una ricetta
 function show(req, res) {
 
+    // Errore di prova per middleware errorsHandler
+    ciao();
+
     // Cerco la ricetta tramite ID
     const ricetta = recipesList.find(ricetta => ricetta.id === parseInt(req.params.id));
 
