@@ -107,11 +107,13 @@ function modify(req, res) {
         })
     }
 
-    // Aggiorno ricetta
-    req.body.title ? ricetta.title = req.body.title : ricetta.title = ricetta.title;
-    req.body.image ? ricetta.image = req.body.image : ricetta.image = ricetta.image;
-    req.body.content ? ricetta.content = req.body.content : ricetta.content = ricetta.content;
-    req.body.tags ? ricetta.tags = req.body.tags : ricetta.tags = ricetta.tags;
+    // Aggiorno ricetta iterando sulle proprietà
+    const properties = ['title', 'image', 'content', 'tags']
+    properties.forEach(propertie => {
+        if (req.body[propertie] !== undefined) { // Se nella richiesta c'è quel campo
+            ricetta[propertie] = req.body[propertie]; // sostituiscilo con quello presente
+        }
+    })
 
     res.json(ricetta);
 }
