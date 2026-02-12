@@ -27,7 +27,7 @@ function index(req, res) {
 function show(req, res) {
 
     // Errore di prova per middleware errorsHandler
-    ciao();
+    // ciao();
 
     // Cerco la ricetta tramite ID
     const ricetta = recipesList.find(ricetta => ricetta.id === parseInt(req.params.id));
@@ -110,13 +110,18 @@ function modify(req, res) {
         })
     }
 
-    // Aggiorno ricetta iterando sulle proprietà
+    /* Aggiorno ricetta iterando sulle proprietà
     const properties = ['title', 'image', 'content', 'tags']
     properties.forEach(propertie => {
         if (req.body[propertie]) { // Se nella richiesta c'è quel campo
             ricetta[propertie] = req.body[propertie]; // sostituiscilo con quello presente
         }
-    })
+    })*/
+
+    // Altro modo che evita di creare l'array di proprietà
+    for (let key in req.body) {
+        ricetta[key] = req.body[key];
+    }
 
     res.json(ricetta);
 }
