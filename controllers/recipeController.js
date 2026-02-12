@@ -113,7 +113,7 @@ function modify(req, res) {
     // Aggiorno ricetta iterando sulle proprietà
     const properties = ['title', 'image', 'content', 'tags']
     properties.forEach(propertie => {
-        if (req.body[propertie] !== undefined) { // Se nella richiesta c'è quel campo
+        if (req.body[propertie]) { // Se nella richiesta c'è quel campo
             ricetta[propertie] = req.body[propertie]; // sostituiscilo con quello presente
         }
     })
